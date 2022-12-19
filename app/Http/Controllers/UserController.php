@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\UserCollection;
 
 class UserController extends Controller
 {
@@ -16,5 +17,10 @@ class UserController extends Controller
         }
     
         return response()->json(['success' => true, 'user' => new UserResource($user)]);
+    }
+    public function getUsers () {
+        $users = User::query()->get();
+    
+        return response()->json(['success' => true, 'users' => new UserCollection($users)]);
     }
 }
